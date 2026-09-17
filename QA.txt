@@ -1,0 +1,36 @@
+======================================================================
+             TOP 5 TECHNICAL INTERVIEW Q&A: AWS VPC
+======================================================================
+
+Q1: What is a VPC, and what are its core structural components?
+A1: "A VPC is an isolated private virtual network sandbox in AWS. 
+    Its core components are CIDR blocks (IP capacity), Subnets 
+    (AZ division), Route Tables (traffic maps), Internet Gateways 
+    (public access), and Security Groups/NACLs (firewalls)."
+
+Q2: What is the exact difference between a Public and Private Subnet?
+A2: "Architecturally they are identical. A subnet is 'Public' only 
+    if its Route Table contains an explicit default route (0.0.0.0/0) 
+    pointing directly to an attached Internet Gateway. Without this 
+    gateway route, it remains 'Private'."
+
+Q3: How do resources inside a Private Subnet securely download patches?
+A3: "Via a NAT Gateway deployed in a Public Subnet. The Private Subnet's 
+    Route Table is configured to direct outbound traffic to the NAT 
+    Gateway. This allows one-way outbound internet access while 
+    completely blocking direct inbound connections."
+
+Q4: What is the difference between a Security Group and a NACL?
+A4: "Security Groups operate at the instance level and are stateful 
+    (allowed inbound automatically permits outbound return traffic). 
+    NACLs operate at the subnet boundary level, are stateless (return 
+    traffic must be explicitly allowed), and evaluate rules numerically."
+
+Q5: If an EC2 instance in a public subnet cannot connect to the 
+    internet, how do you debug it?
+A5: "I check four components sequentially: 1. Ensure the instance has a 
+    Public IP. 2. Verify the Subnet Route Table points 0.0.0.0/0 to a 
+    healthy Internet Gateway. 3. Audit Security Group rules for the 
+    target ports. 4. Verify Subnet NACL rules are not blocking traffic."
+======================================================================
+

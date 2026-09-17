@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: official-gitops-config
+  namespace: default
+data:
+  status: "authorized-by-code"
+
